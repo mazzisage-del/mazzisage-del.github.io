@@ -34,8 +34,8 @@
     },
     ocean: {
       title: "Custom Ocean", tag: "Gerstner waves", cat: "world systems",
-      desc: "A wave system written from scratch using Gerstner wave math, giving a rolling, realistic ocean that players can swim through.",
-      built: ["Gerstner wave simulation, made from scratch", "Tunable wave direction, height and length", "Swimming that follows the wave surface", "Smooth performance on large water areas"],
+      desc: "An open ocean built from scratch with Gerstner wave math: big rolling swells you can swim across, ride over and dive beneath.",
+      built: ["Gerstner wave simulation, made from scratch", "Large rolling swells with tunable height and length", "Swimming that rides the wave surface", "Diving with an underwater view", "Sun glints and foam on the crests", "Smooth performance on huge water areas"],
     },
     horse: {
       title: "Horse Riding", tag: "Mount system", cat: "world systems",
