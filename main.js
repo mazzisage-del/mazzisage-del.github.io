@@ -18,11 +18,10 @@
       built: ["Interactive 3D globe with smooth orbit-to-province zoom", "Province map with nation ownership and labels", "Nation select screen with great powers", "Diplomacy and elections menus", "Live nation stats sidebar", "Space skybox and atmosphere"],
     },
     {
-      id: "abilities", title: "Ability Kit", tag: "Abilities & VFX", cats: ["combat"],
-      blurb: "A huge blast, a dash with a colour trail and a grab finisher.",
-      desc: "Three abilities from my combat sandbox, each one built to feel good to press: a charged blast that ends in a wall of fire, a dash that leaves a colour-shifting trail, and a long-range grab that pulls the target into a punch.",
-      built: ["Blast with a ground marker and a charge-up glow", "Chained explosions with fire and smoke that linger", "Dash with an afterimage trail that shifts colour", "Long-range grab that pulls the target in", "Impact frames and a screen flash on the hit", "Tried out on live turrets and training dummies"],
-      clips: [{ id: "boom", label: "Blast" }, { id: "dash", label: "Dash" }, { id: "grab", label: "Finisher" }],
+      id: "dash", title: "Sandevistan", tag: "Cyberpunk 2077 inspired", cats: ["combat"],
+      blurb: "Slow the world down and leave afterimages behind.",
+      desc: "An ability inspired by the Sandevistan from Cyberpunk 2077. The world slows to a crawl while you keep moving at full speed, and you leave a trail of colour-shifting afterimages behind you.",
+      built: ["Time slows down for everything but the player", "Afterimages left behind as you move", "Afterimage colours shift as the trail grows", "Screen tint while the ability is active", "Cooldown shown on the HUD"],
     },
     {
       id: "ocean", title: "Custom Ocean", tag: "Gerstner waves", cats: ["world", "systems"],
@@ -37,17 +36,35 @@
       built: ["Intermission → stage → results loop with timers", "Stage transitions (Desert → Forest)", "Ability system with costs like \"the price is paid\"", "Cinematic ability callouts and VFX", "Capture zones and hold objectives", "Shop and mount support"],
     },
     {
-      id: "monster", title: "Monster Battles", tag: "Turn-based battles", cats: ["games", "systems"],
-      blurb: "Wild encounters, move menus and mid-battle power-ups.",
-      desc: "A turn-based battle system in the style of classic monster-catching games. Walk into tall grass, get pulled into a battle scene, pick your moves and power up in the middle of the fight.",
-      built: ["Wild encounters triggered in tall grass", "Battle scene with an intro and a text box", "Move menu with types and PP counts", "Mid-battle transformation that swaps in boosted moves", "HP bars and a party indicator", "Stat boosts and battle messages"],
+      id: "monster", title: "Dynamax Addition to PBB Copy", tag: "Pokémon Brick Bronze", cats: ["games", "systems"],
+      blurb: "A Dynamax mechanic added to a Pokémon Brick Bronze copy.",
+      desc: "A Dynamax mechanic I added to a copy of Pokémon Brick Bronze (PBB). In a wild battle you can Dynamax your Pokémon in the middle of the fight. It grows, gets a boosted look, and its moves are swapped for Max Moves.",
+      built: ["Dynamax option added to the battle menu", "Pokémon grows and changes colour when it Dynamaxes", "Moves swap to Max Moves (Max Strike, Max Geyser, Max Phantasm)", "Dynamax announcement in the battle text box", "Stat boosts and battle messages", "Works inside the existing PBB battle system"],
     },
     {
       id: "turrets", title: "Sentry Turrets", tag: "Enemy AI", cats: ["combat", "systems"],
-      blurb: "Turrets that track you down, and blow up when you win.",
-      desc: "Enemy turrets for a shooter sandbox. They pick up the player, track them and open fire, and they can be destroyed if you live long enough to shoot back.",
-      built: ["Turrets that track and fire at the player", "Tracer shots with muzzle flash and impact debris", "Damage vignette and health bar feedback", "Knockdown and ragdoll when the player goes down", "Turrets take damage and explode", "Burning wreck and smoke left behind"],
-      clips: [{ id: "turret-a", label: "Under fire" }, { id: "turret-b", label: "Taking one out" }],
+      blurb: "Turrets with bullet gravity and an overheat system.",
+      desc: "Enemy turrets for a shooter sandbox. They track the player and open fire, and their bullets are affected by gravity, so shots drop over distance. A turret that fires too long overheats and has to cool down.",
+      built: ["Turrets that track and fire at the player", "Bullet gravity, so shots arc and drop over distance", "Overheat system that makes turrets cool down", "Muzzle flash and impact debris", "Damage vignette and health bar feedback", "Knockdown and ragdoll when the player goes down"],
+      clips: [{ id: "turret-a", label: "Sentry Turrets" }],
+    },
+    {
+      id: "turret-b", title: "Quickhack", tag: "Cyberpunk 2077 inspired", cats: ["combat", "systems"],
+      blurb: "Hack a turret from range and take it out.",
+      desc: "A quickhack ability inspired by Cyberpunk 2077. Instead of shooting, you hack a sentry turret from a distance and take it out, leaving a burning wreck behind.",
+      built: ["Hack an enemy from range", "Takes a turret out without a shot", "Burning wreck and smoke left behind", "Works alongside the turret AI"],
+    },
+    {
+      id: "boom", title: "Explosion", tag: "VFX", cats: ["combat"],
+      blurb: "A huge blast that ends in a wall of fire.",
+      desc: "A large explosion effect from my combat sandbox. It starts with a charge-up, then a huge blast with fire and smoke that lingers after the hit.",
+      built: ["Ground marker and charge-up glow", "Huge blast with chained explosions", "Fire and smoke that linger", "Screen flash on the hit"],
+    },
+    {
+      id: "grab", title: "Finisher", tag: "Ability + explosion", cats: ["combat"],
+      blurb: "A long-range grab that ends in a blast of red.",
+      desc: "A finisher ability. It reaches out and grabs the target from range, pulls them in, then ends with a heavy punch, a white screen flash and an explosion of red particles.",
+      built: ["Long-range grab that pulls the target in", "Heavy punch on arrival", "Impact frames and a white screen flash", "Explosion of red particles on the hit"],
     },
     {
       id: "rpg", title: "Open-World RPG", tag: "RPG framework", cats: ["games", "systems"],
@@ -162,7 +179,7 @@
 
   // ---------------------------------------------------------------- what i do
   const moves = [
-    { t: "Combat & abilities", d: "Hitboxes, combos, cooldowns, dashes and finishers, with the damage checked on the server.", to: "abilities", peek: "boom" },
+    { t: "Combat & abilities", d: "Hitboxes, combos, cooldowns, dashes and finishers, with the damage checked on the server.", to: "dash", peek: "dash" },
     { t: "Enemies & AI", d: "Enemies that track you, shoot, take damage and go down properly.", to: "turrets", peek: "turret-a" },
     { t: "Game loops", d: "Rounds, intermissions, stages, queues and win conditions.", to: "arena", peek: "arena" },
     { t: "World systems", d: "Oceans, mounts, building tools and doors that know who you are.", to: "ocean", peek: "ocean" },
