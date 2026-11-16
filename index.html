@@ -28,6 +28,7 @@
 <body>
   <a class="skip" href="#work">Skip to the work</a>
   <div id="top-mark"></div>
+  <div class="bar" id="bar" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
     <div class="wrap nav-in">
@@ -35,6 +36,7 @@
       <nav class="links" aria-label="Sections">
         <a href="#work">Work</a>
         <a href="#what">What I do</a>
+        <a href="#pricing">Pricing</a>
         <a href="#code">Code</a>
         <a href="#about">About</a>
       </nav>
@@ -49,7 +51,7 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="cap rise">Full-stack Roblox scripter</p>
-          <h1 class="rise">If it runs on <span class="scr">Luau<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12C30 4 52 17 80 9s50-4 70 3 35-4 47-2"/></svg></span>, I'll build it.</h1>
+          <h1 class="rise"><span class="l"><span>If it runs</span></span> <span class="l"><span>on <span class="scr">Luau<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12C30 4 52 17 80 9s50-4 70 3 35-4 47-2"/></svg></span>,</span></span> <span class="l"><span>I'll build it.</span></span></h1>
           <p class="lead rise">I'm Mazzi. Six years of scripting combat, enemy AI, oceans and strategy maps, plus everything around them: server, client, UI and data.</p>
           <div class="cta rise">
             <a href="#work" class="btn">See the work <span aria-hidden="true">↓</span></a>
@@ -59,9 +61,9 @@
             </button>
           </div>
           <ul class="facts rise">
-            <li><b>6</b> years of Luau</li>
-            <li><b id="count">13</b> systems below</li>
-            <li><b>Open</b> for commissions</li>
+            <li><b data-to="6">6</b> years of Luau</li>
+            <li><b id="count" data-to="13">13</b> systems below</li>
+            <li><b>Open</b> a few slots at a time</li>
           </ul>
         </div>
 
@@ -81,10 +83,10 @@
     <!-- tape -->
     <div class="tape" aria-hidden="true">
       <div class="tape-run">
-        <span>Commissions open ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ Full-stack Luau ✶ </span>
-        <span>Commissions open ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ Full-stack Luau ✶ </span>
-        <span>Commissions open ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ Full-stack Luau ✶ </span>
-        <span>Commissions open ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ Full-stack Luau ✶ </span>
+        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
+        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
+        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
+        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
       </div>
     </div>
 
@@ -126,6 +128,43 @@
           <p>I work on both the server and the client, so a feature doesn't get handed around. Rows with an arrow open a clip that backs it up.</p>
         </header>
         <ol class="moves" id="moves"></ol>
+      </div>
+    </section>
+
+    <!-- pricing -->
+    <section class="sec" id="pricing">
+      <div class="wrap">
+        <header class="head rise">
+          <h2>Pricing</h2>
+          <p>Starting points, not fixed rates. I quote every project by what it needs, and it's all negotiable. Pay in USD or Robux.</p>
+        </header>
+        <ul class="tiers">
+          <li class="tier rise">
+            <div class="tier-in">
+              <p class="kick">Small job</p>
+              <p class="from">from $<b data-to="15">15</b></p>
+              <p>A bug fix, a single feature, a UI change or a script that needs sorting out.</p>
+              <p class="when">usually a few days</p>
+            </div>
+          </li>
+          <li class="tier rise">
+            <div class="tier-in">
+              <p class="kick">A full system</p>
+              <p class="from">from $<b data-to="60">60</b></p>
+              <p>Something with several moving parts: combat moves, a shop, a round loop, data saving, enemy AI.</p>
+              <p class="when">usually a week or so</p>
+            </div>
+          </li>
+          <li class="tier rise">
+            <div class="tier-in">
+              <p class="kick">A big build</p>
+              <p class="from">from $<b data-to="200">200</b></p>
+              <p>Something large, like an ocean, a strategy map or a whole game loop. Split into milestones so you see progress as it goes.</p>
+              <p class="when">scoped together</p>
+            </div>
+          </li>
+        </ul>
+        <p class="slots rise"><span class="pulse" aria-hidden="true"></span> I only take a few projects at a time, so message me early if you have a deadline.</p>
       </div>
     </section>
 

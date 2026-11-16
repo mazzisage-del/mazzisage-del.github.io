@@ -96,6 +96,7 @@
   const byId = Object.fromEntries(projects.map((p) => [p.id, p]));
   const order = projects.map((p) => p.id);
 
+  $("#count").dataset.to = projects.length;
   $("#count").textContent = projects.length;
   $("#year").textContent = new Date().getFullYear();
 
@@ -205,13 +206,25 @@
   $$(".hero .rise").forEach((el, i) => el.style.setProperty("--d", i * 80 + "ms"));
   $$("#moves .rise").forEach((el, i) => el.style.setProperty("--d", i * 45 + "ms"));
 
+  // progress line across the top, plus a little parallax on the OC (both just transforms, one rAF)
+  let heroInView = true;
+  const bar = $("#bar"), artWrap = $("#art").parentElement;
+  let scrollQueued = false;
+  const onScroll = () => {
+    scrollQueued = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    if (!calm && heroInView) artWrap.style.transform = `translate3d(0, ${(scrollY * -0.06).toFixed(1)}px, 0)`;
+  };
+  addEventListener("scroll", () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener("resize", onScroll);
+
   // nav gets its border once you leave the top
   const nav = $("#nav");
   new IntersectionObserver(([e]) => nav.classList.toggle("stuck", !e.isIntersecting)).observe($("#top-mark"));
 
   // stop the looping animations when they're off screen
   const tape = $(".tape"), hero = $(".hero");
-  let heroInView = true;
   new IntersectionObserver(([e]) => tape.classList.toggle("off", !e.isIntersecting)).observe(tape);
   new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; hero.classList.toggle("off", !heroInView); }).observe(hero);
 
@@ -533,6 +546,36 @@ return RoundService`,
   }
   for (const t of $$(".tab")) t.addEventListener("click", () => showTab(t.dataset.tab));
   showTab("waves");
+
+  // numbers count up the first time they scroll into view
+  if (!calm) {
+    const counter = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        counter.unobserve(e.target);
+        const el = e.target, to = +el.dataset.to, t0 = performance.now(), dur = 900;
+        const tick = (t) => {
+          const k = Math.min(1, (t - t0) / dur);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+          if (k < 1) requestAnimationFrame(tick);
+        };
+        el.textContent = "0";
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.6 });
+    $$("[data-to]").forEach((el) => counter.observe(el));
+  }
+
+  // buttons lean toward the cursor a little
+  if (hasMouse && !calm) {
+    for (const b of $$(".btn")) {
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.translate = `${((e.clientX - r.left) / r.width - 0.5) * 8}px ${((e.clientY - r.top) / r.height - 0.5) * 6}px`;
+      });
+      b.addEventListener("pointerleave", () => { b.style.translate = ""; });
+    }
+  }
 
   console.log("%cMAZZI%c  looking for a scripter? discord: mazzisagedev", "font: 700 18px sans-serif; color: #74b3ec", "color: inherit");
 })();
