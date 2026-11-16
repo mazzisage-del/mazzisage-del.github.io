@@ -13,100 +13,84 @@
   const projects = [
     {
       id: "strategy", title: "Blocks of Iron", tag: "Grand strategy", cats: ["games", "systems"],
-      blurb: "Ancient-world grand strategy on a 3D globe.",
-      desc: "A grand-strategy game set in the ancient world, played on a fully interactive 3D globe. Pick a great power like the Roman Republic or the Seleucid Empire, then manage territory, diplomacy and politics across the whole map.",
-      built: ["Interactive 3D globe with smooth orbit-to-province zoom", "Province map with nation ownership and labels", "Nation select screen with great powers", "Diplomacy and elections menus", "Live nation stats sidebar", "Space skybox and atmosphere"],
+      blurb: "Strategy game on a 3D globe.",
+      desc: "A strategy game set in the ancient world. You pick a country like Rome and play it on a 3D globe.",
     },
     {
       id: "dash", title: "Sandevistan", tag: "Cyberpunk 2077 inspired", cats: ["combat"],
-      blurb: "Slow the world down and leave afterimages behind.",
-      desc: "An ability inspired by the Sandevistan from Cyberpunk 2077. The world slows to a crawl while you keep moving at full speed, and you leave a trail of colour-shifting afterimages behind you.",
-      built: ["Time slows down for everything but the player", "Afterimages left behind as you move", "Afterimage colours shift as the trail grows", "Screen tint while the ability is active", "Cooldown shown on the HUD"],
+      blurb: "Slows time and leaves afterimages.",
+      desc: "A Sandevistan from Cyberpunk 2077. Time slows down around you while you keep moving fast, and you leave afterimages behind.",
     },
     {
       id: "ocean", title: "Custom Ocean", tag: "Gerstner waves", cats: ["world", "systems"],
-      blurb: "Rolling swells you can swim over and dive under.",
-      desc: "An open ocean built from scratch with Gerstner wave math: big rolling swells you can swim across, ride over and dive beneath.",
-      built: ["Gerstner wave simulation, made from scratch", "Large rolling swells with tunable height and length", "Swimming that rides the wave surface", "Diving with an underwater view", "Sun glints and foam on the crests", "Smooth performance on huge water areas"],
+      blurb: "Waves I made from scratch that you can swim in.",
+      desc: "An ocean I made from scratch using wave math. You can swim on it and dive under it.",
     },
     {
       id: "arena", title: "Ability Arena", tag: "Round-based PvP", cats: ["games", "combat"],
-      blurb: "Rounds, stages and abilities that cost you something.",
-      desc: "A round-based battle game where players fight across multiple stages, each with its own map and lighting, using abilities that trade risk for power.",
-      built: ["Intermission → stage → results loop with timers", "Stage transitions (Desert → Forest)", "Ability system with costs like \"the price is paid\"", "Cinematic ability callouts and VFX", "Capture zones and hold objectives", "Shop and mount support"],
+      blurb: "Round based PvP with different stages.",
+      desc: "A round based fighting game. Every round is on a different stage and you use abilities that cost you something.",
     },
     {
       id: "monster", title: "Dynamax Addition to PBB Copy", tag: "Pokémon Brick Bronze", cats: ["games", "systems"],
-      blurb: "A Dynamax mechanic added to a Pokémon Brick Bronze copy.",
-      desc: "A Dynamax mechanic I added to a copy of Pokémon Brick Bronze (PBB). In a wild battle you can Dynamax your Pokémon in the middle of the fight. It grows, gets a boosted look, and its moves are swapped for Max Moves.",
-      built: ["Dynamax option added to the battle menu", "Pokémon grows and changes colour when it Dynamaxes", "Moves swap to Max Moves (Max Strike, Max Geyser, Max Phantasm)", "Dynamax announcement in the battle text box", "Stat boosts and battle messages", "Works inside the existing PBB battle system"],
+      blurb: "Dynamax added to a PBB copy.",
+      desc: "A Dynamax system I added to a copy of Pokémon Brick Bronze (PBB). You can Dynamax your Pokémon in battle and its moves get swapped for Max Moves.",
     },
     {
       id: "turrets", title: "Sentry Turrets", tag: "Enemy AI", cats: ["combat", "systems"],
-      blurb: "Turrets with bullet gravity and an overheat system.",
-      desc: "Enemy turrets for a shooter sandbox. They track the player and open fire, and their bullets are affected by gravity, so shots drop over distance. A turret that fires too long overheats and has to cool down.",
-      built: ["Turrets that track and fire at the player", "Bullet gravity, so shots arc and drop over distance", "Overheat system that makes turrets cool down", "Muzzle flash and impact debris", "Damage vignette and health bar feedback", "Knockdown and ragdoll when the player goes down"],
+      blurb: "Turrets with bullet gravity and overheat.",
+      desc: "Enemy turrets that shoot at you. The bullets drop because of gravity, and a turret overheats if it fires for too long.",
       clips: [{ id: "turret-a", label: "Sentry Turrets" }],
     },
     {
       id: "turret-b", title: "Quickhack", tag: "Cyberpunk 2077 inspired", cats: ["combat", "systems"],
-      blurb: "Hack a turret from range and take it out.",
-      desc: "A quickhack ability inspired by Cyberpunk 2077. Instead of shooting, you hack a sentry turret from a distance and take it out, leaving a burning wreck behind.",
-      built: ["Hack an enemy from range", "Takes a turret out without a shot", "Burning wreck and smoke left behind", "Works alongside the turret AI"],
+      blurb: "A quickhack on a turret.",
+      desc: "A quickhack ability, inspired by Cyberpunk 2077. You hack a turret from range and take it out.",
     },
     {
       id: "boom", title: "Explosion", tag: "VFX", cats: ["combat"],
-      blurb: "A huge blast that ends in a wall of fire.",
-      desc: "A large explosion effect from my combat sandbox. It starts with a charge-up, then a huge blast with fire and smoke that lingers after the hit.",
-      built: ["Ground marker and charge-up glow", "Huge blast with chained explosions", "Fire and smoke that linger", "Screen flash on the hit"],
+      blurb: "A big explosion.",
+      desc: "A big explosion effect, with fire and smoke left behind after it goes off.",
     },
     {
       id: "grab", title: "Finisher", tag: "Ability + explosion", cats: ["combat"],
-      blurb: "A long-range grab that ends in a blast of red.",
-      desc: "A finisher ability. It reaches out and grabs the target from range, pulls them in, then ends with a heavy punch, a white screen flash and an explosion of red particles.",
-      built: ["Long-range grab that pulls the target in", "Heavy punch on arrival", "Impact frames and a white screen flash", "Explosion of red particles on the hit"],
+      blurb: "A grab that ends in an explosion.",
+      desc: "A finisher. It grabs the target from range, pulls them in, punches them and ends with an explosion.",
     },
     {
       id: "rpg", title: "Open-World RPG", tag: "RPG framework", cats: ["games", "systems"],
-      blurb: "Races, training, gathering and climbing.",
-      desc: "The core of an open-world RPG: choose a race, train your character and head out into the world to gather, climb and explore.",
-      built: ["Race selection (Human, Equines, Abyssal) with stats", "Training system with completion feedback", "Resource gathering with breakable rocks and debris", "Wall climbing and traversal", "Hotbar inventory and health HUD", "Full settings menu"],
+      blurb: "Races, training and gathering.",
+      desc: "The start of an open world RPG. You pick a race, train, gather resources and climb walls.",
     },
     {
       id: "horror", title: "Night Shift", tag: "Story horror", cats: ["games"],
-      blurb: "A cutscene intro, security cameras and a power meter.",
-      desc: "A story-driven horror game: walk in through a foggy intro with subtitled narration, then survive the night shift at Ace Co. Pizzeria.",
-      built: ["Scripted intro cutscene with subtitles", "Security camera system", "Power meter and night clock", "Atmospheric lighting and fog", "Office controls and interactables"],
+      blurb: "Horror game with an intro and cameras.",
+      desc: "A horror game. It starts with a story intro, then you work a night shift at a pizzeria with security cameras and a power meter.",
     },
     {
       id: "combat", title: "Combat & Summons", tag: "Combat framework", cats: ["combat"],
-      blurb: "Summoned fighters, combos and a time stop.",
-      desc: "A combat framework built around summonable fighters, combos and big moves, tested against dummies in a sandbox.",
-      built: ["Summon / stand-style fighters that follow the player", "Combos, blocking and hit reactions", "Time-stop effect with world desaturation", "Projectile and charged abilities", "Training dummies for balancing", "Cooldown and move-list HUD"],
+      blurb: "Summons, combos and a time stop.",
+      desc: "A combat system with summoned fighters, combos and a time stop move, tested on dummies.",
     },
     {
       id: "build", title: "Build Mode", tag: "Building system", cats: ["systems", "world"],
-      blurb: "Drag out walls that join with clean corners.",
-      desc: "A placement system for building walls piece by piece. A ghost preview shows where the piece will land, walls stretch as you drag, and corners join with clean mitered edges.",
-      built: ["Ghost preview before you place", "Drag to stretch a wall to any length", "Corners join with mitered edges", "Pieces connect end to end"],
+      blurb: "Placing walls with a ghost preview.",
+      desc: "A building system. You get a ghost preview, drag to stretch a wall, and the corners join up.",
     },
     {
       id: "horse", title: "Horse Riding", tag: "Mount system", cats: ["world", "systems"],
-      blurb: "A mount with real acceleration and a speed readout.",
-      desc: "A mount system with smooth acceleration, gallop animations and a live speed readout.",
-      built: ["Mount and dismount flow", "Acceleration and top-speed handling", "Gallop, turn and jump animations", "Live speed indicator"],
+      blurb: "Horse riding with a speed meter.",
+      desc: "A horse riding system with acceleration, gallop animations and a speed meter.",
     },
     {
       id: "access", title: "Resident Access", tag: "Interaction system", cats: ["systems", "world"],
-      blurb: "Doors that check if you actually live there.",
-      desc: "Apartment and facility doors that check whether the player is allowed in, with a civic registry lookup and clear feedback.",
-      built: ["Resident-only doors with access checks", "Registry lookup with \"resident not found\" feedback", "Animated, interactive doors", "Readable on-screen prompts"],
+      blurb: "Doors that check if you're allowed in.",
+      desc: "Doors that check if the player is allowed in. They look the player up in a registry and show a message if they aren't.",
     },
     {
       id: "island", title: "Island Hub", tag: "Lobby & queues", cats: ["systems", "world"],
-      blurb: "Dock queue pads with player counts and timers.",
-      desc: "An island lobby with dock queue pads that fill up and count down, plus swimming in calm, tuned water.",
-      built: ["Queue pads with player capacity (0/4, 0/1)", "Countdown timers per pad", "Swimming and water tuning", "Hub layout with boats and docks"],
+      blurb: "A lobby with queue pads.",
+      desc: "A lobby on an island with queue pads that show how many players are in and count down.",
     },
   ];
   for (const p of projects) p.clips ??= [{ id: p.id, label: p.title }];
@@ -179,13 +163,13 @@
 
   // ---------------------------------------------------------------- what i do
   const moves = [
-    { t: "Combat & abilities", d: "Hitboxes, combos, cooldowns, dashes and finishers, with the damage checked on the server.", to: "dash", peek: "dash" },
-    { t: "Enemies & AI", d: "Enemies that track you, shoot, take damage and go down properly.", to: "turrets", peek: "turret-a" },
-    { t: "Game loops", d: "Rounds, intermissions, stages, queues and win conditions.", to: "arena", peek: "arena" },
-    { t: "World systems", d: "Oceans, mounts, building tools and doors that know who you are.", to: "ocean", peek: "ocean" },
-    { t: "UI & menus", d: "Character select, HUDs, battle menus and settings screens.", to: "monster", peek: "monster" },
-    { t: "Data & saving", d: "Inventories, currency and progress saved with DataStores." },
-    { t: "Tools & Python", d: "Scripts that automate the boring parts outside of Studio." },
+    { t: "Combat & abilities", d: "Hitboxes, combos, cooldowns, dashes and finishers.", to: "dash", peek: "dash" },
+    { t: "Enemies & AI", d: "Enemies that track you, shoot and take damage.", to: "turrets", peek: "turret-a" },
+    { t: "Game loops", d: "Rounds, stages, queues and win conditions.", to: "arena", peek: "arena" },
+    { t: "World systems", d: "Oceans, mounts, building tools and doors.", to: "ocean", peek: "ocean" },
+    { t: "UI & menus", d: "HUDs, menus, battle screens and settings.", to: "monster", peek: "monster" },
+    { t: "Data & saving", d: "Saving inventories, currency and progress." },
+    { t: "Tools & Python", d: "Python scripts and tools for the boring stuff." },
   ];
   $("#moves").innerHTML = moves.map((m, i) => {
     const inner = `<span class="n">${String(i + 1).padStart(2, "0")}</span><span class="t">${m.t}</span><span class="d">${m.d}</span>`;
@@ -356,7 +340,6 @@
     $("#vTag").textContent = p.tag;
     $("#vTitle").textContent = p.title;
     $("#vDesc").textContent = p.desc;
-    $("#vBuilt").innerHTML = p.built.map((b) => `<li>${b}</li>`).join("");
     vClips.innerHTML = p.clips.length > 1 ? p.clips.map((c, k) => `<button class="clip" role="tab" data-i="${k}">${c.label}</button>`).join("") : "";
     if (playing) stopPreview(playing);
     if (!viewer.open) viewer.showModal();
