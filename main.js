@@ -1,258 +1,389 @@
-/* Portfolio — Mazzi */
+// mazzi portfolio. plain js, no build step, no libraries.
 (() => {
   "use strict";
 
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const finePointer = matchMedia("(pointer: fine)").matches;
+  const $ = (sel, el = document) => el.querySelector(sel);
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasMouse = matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  /* ---------------- project data ---------------- */
-  const projects = {
-    strategy: {
-      title: "Blocks of Iron", tag: "Grand strategy", cat: "games systems",
+  // ---------------------------------------------------------------- projects
+  // first one is the featured panel, the rest fill the grid in this order.
+  // a project with more than one clip gets clip tabs in the viewer.
+  const projects = [
+    {
+      id: "strategy", title: "Blocks of Iron", tag: "Grand strategy", cats: ["games", "systems"],
+      blurb: "Ancient-world grand strategy on a 3D globe.",
       desc: "A grand-strategy game set in the ancient world, played on a fully interactive 3D globe. Pick a great power like the Roman Republic or the Seleucid Empire, then manage territory, diplomacy and politics across the whole map.",
       built: ["Interactive 3D globe with smooth orbit-to-province zoom", "Province map with nation ownership and labels", "Nation select screen with great powers", "Diplomacy and elections menus", "Live nation stats sidebar", "Space skybox and atmosphere"],
     },
-    arena: {
-      title: "Ability Arena", tag: "Round-based PvP", cat: "games combat",
-      desc: "A round-based battle game where players fight across multiple stages, each with its own map and lighting, using abilities that trade risk for power.",
-      built: ["Intermission → stage → results loop with timers", "Stage transitions (Desert → Forest)", "Ability system with costs like \"the price is paid\"", "Cinematic ability callouts and VFX", "Capture zones and hold objectives", "Shop and mount support"],
+    {
+      id: "abilities", title: "Ability Kit", tag: "Abilities & VFX", cats: ["combat"],
+      blurb: "A huge blast, a dash with a colour trail and a grab finisher.",
+      desc: "Three abilities from my combat sandbox, each one built to feel good to press: a charged blast that ends in a wall of fire, a dash that leaves a colour-shifting trail, and a long-range grab that pulls the target into a punch.",
+      built: ["Blast with a ground marker and a charge-up glow", "Chained explosions with fire and smoke that linger", "Dash with an afterimage trail that shifts colour", "Long-range grab that pulls the target in", "Impact frames and a screen flash on the hit", "Tried out on live turrets and training dummies"],
+      clips: [{ id: "boom", label: "Blast" }, { id: "dash", label: "Dash" }, { id: "grab", label: "Finisher" }],
     },
-    rpg: {
-      title: "Open-World RPG", tag: "RPG framework", cat: "games systems",
-      desc: "The core of an open-world RPG: choose a race, train your character and head out into the world to gather, climb and explore.",
-      built: ["Race selection (Human, Equines, Abyssal) with stats", "Training system with completion feedback", "Resource gathering with breakable rocks and debris", "Wall climbing and traversal", "Hotbar inventory and health HUD", "Full settings menu"],
-    },
-    combat: {
-      title: "Combat & Summons", tag: "Combat framework", cat: "combat",
-      desc: "A combat framework built around summonable fighters, combos and big moves, tested against dummies in a sandbox.",
-      built: ["Summon / stand-style fighters that follow the player", "Combos, blocking and hit reactions", "Time-stop effect with world desaturation", "Projectile and charged abilities", "Training dummies for balancing", "Cooldown and move-list HUD"],
-    },
-    horror: {
-      title: "Night Shift", tag: "Story horror", cat: "games",
-      desc: "A story-driven horror game: walk in through a foggy intro with subtitled narration, then survive the night shift at Ace Co. Pizzeria.",
-      built: ["Scripted intro cutscene with subtitles", "Security camera system", "Power meter and night clock", "Atmospheric lighting and fog", "Office controls and interactables"],
-    },
-    ocean: {
-      title: "Custom Ocean", tag: "Gerstner waves", cat: "world systems",
+    {
+      id: "ocean", title: "Custom Ocean", tag: "Gerstner waves", cats: ["world", "systems"],
+      blurb: "Rolling swells you can swim over and dive under.",
       desc: "An open ocean built from scratch with Gerstner wave math: big rolling swells you can swim across, ride over and dive beneath.",
       built: ["Gerstner wave simulation, made from scratch", "Large rolling swells with tunable height and length", "Swimming that rides the wave surface", "Diving with an underwater view", "Sun glints and foam on the crests", "Smooth performance on huge water areas"],
     },
-    horse: {
-      title: "Horse Riding", tag: "Mount system", cat: "world systems",
+    {
+      id: "arena", title: "Ability Arena", tag: "Round-based PvP", cats: ["games", "combat"],
+      blurb: "Rounds, stages and abilities that cost you something.",
+      desc: "A round-based battle game where players fight across multiple stages, each with its own map and lighting, using abilities that trade risk for power.",
+      built: ["Intermission → stage → results loop with timers", "Stage transitions (Desert → Forest)", "Ability system with costs like \"the price is paid\"", "Cinematic ability callouts and VFX", "Capture zones and hold objectives", "Shop and mount support"],
+    },
+    {
+      id: "monster", title: "Monster Battles", tag: "Turn-based battles", cats: ["games", "systems"],
+      blurb: "Wild encounters, move menus and mid-battle power-ups.",
+      desc: "A turn-based battle system in the style of classic monster-catching games. Walk into tall grass, get pulled into a battle scene, pick your moves and power up in the middle of the fight.",
+      built: ["Wild encounters triggered in tall grass", "Battle scene with an intro and a text box", "Move menu with types and PP counts", "Mid-battle transformation that swaps in boosted moves", "HP bars and a party indicator", "Stat boosts and battle messages"],
+    },
+    {
+      id: "turrets", title: "Sentry Turrets", tag: "Enemy AI", cats: ["combat", "systems"],
+      blurb: "Turrets that track you down, and blow up when you win.",
+      desc: "Enemy turrets for a shooter sandbox. They pick up the player, track them and open fire, and they can be destroyed if you live long enough to shoot back.",
+      built: ["Turrets that track and fire at the player", "Tracer shots with muzzle flash and impact debris", "Damage vignette and health bar feedback", "Knockdown and ragdoll when the player goes down", "Turrets take damage and explode", "Burning wreck and smoke left behind"],
+      clips: [{ id: "turret-a", label: "Under fire" }, { id: "turret-b", label: "Taking one out" }],
+    },
+    {
+      id: "rpg", title: "Open-World RPG", tag: "RPG framework", cats: ["games", "systems"],
+      blurb: "Races, training, gathering and climbing.",
+      desc: "The core of an open-world RPG: choose a race, train your character and head out into the world to gather, climb and explore.",
+      built: ["Race selection (Human, Equines, Abyssal) with stats", "Training system with completion feedback", "Resource gathering with breakable rocks and debris", "Wall climbing and traversal", "Hotbar inventory and health HUD", "Full settings menu"],
+    },
+    {
+      id: "horror", title: "Night Shift", tag: "Story horror", cats: ["games"],
+      blurb: "A cutscene intro, security cameras and a power meter.",
+      desc: "A story-driven horror game: walk in through a foggy intro with subtitled narration, then survive the night shift at Ace Co. Pizzeria.",
+      built: ["Scripted intro cutscene with subtitles", "Security camera system", "Power meter and night clock", "Atmospheric lighting and fog", "Office controls and interactables"],
+    },
+    {
+      id: "combat", title: "Combat & Summons", tag: "Combat framework", cats: ["combat"],
+      blurb: "Summoned fighters, combos and a time stop.",
+      desc: "A combat framework built around summonable fighters, combos and big moves, tested against dummies in a sandbox.",
+      built: ["Summon / stand-style fighters that follow the player", "Combos, blocking and hit reactions", "Time-stop effect with world desaturation", "Projectile and charged abilities", "Training dummies for balancing", "Cooldown and move-list HUD"],
+    },
+    {
+      id: "build", title: "Build Mode", tag: "Building system", cats: ["systems", "world"],
+      blurb: "Drag out walls that join with clean corners.",
+      desc: "A placement system for building walls piece by piece. A ghost preview shows where the piece will land, walls stretch as you drag, and corners join with clean mitered edges.",
+      built: ["Ghost preview before you place", "Drag to stretch a wall to any length", "Corners join with mitered edges", "Pieces connect end to end"],
+    },
+    {
+      id: "horse", title: "Horse Riding", tag: "Mount system", cats: ["world", "systems"],
+      blurb: "A mount with real acceleration and a speed readout.",
       desc: "A mount system with smooth acceleration, gallop animations and a live speed readout.",
       built: ["Mount and dismount flow", "Acceleration and top-speed handling", "Gallop, turn and jump animations", "Live speed indicator"],
     },
-    access: {
-      title: "Resident Access", tag: "Interaction system", cat: "systems world",
+    {
+      id: "access", title: "Resident Access", tag: "Interaction system", cats: ["systems", "world"],
+      blurb: "Doors that check if you actually live there.",
       desc: "Apartment and facility doors that check whether the player is allowed in, with a civic registry lookup and clear feedback.",
       built: ["Resident-only doors with access checks", "Registry lookup with \"resident not found\" feedback", "Animated, interactive doors", "Readable on-screen prompts"],
     },
-    island: {
-      title: "Island Hub", tag: "Lobby & queues", cat: "systems world",
+    {
+      id: "island", title: "Island Hub", tag: "Lobby & queues", cats: ["systems", "world"],
+      blurb: "Dock queue pads with player counts and timers.",
       desc: "An island lobby with dock queue pads that fill up and count down, plus swimming in calm, tuned water.",
       built: ["Queue pads with player capacity (0/4, 0/1)", "Countdown timers per pad", "Swimming and water tuning", "Hub layout with boats and docks"],
     },
-  };
-  const gridOrder = ["arena", "rpg", "combat", "horror", "ocean", "horse", "access", "island"];
+  ];
+  for (const p of projects) p.clips ??= [{ id: p.id, label: p.title }];
+  const byId = Object.fromEntries(projects.map((p) => [p.id, p]));
+  const order = projects.map((p) => p.id);
 
-  /* ---------------- build grid ---------------- */
-  const grid = document.getElementById("grid");
-  grid.innerHTML = gridOrder.map((id, i) => {
-    const p = projects[id];
-    return `<article class="card reveal" data-id="${id}" data-cat="${p.cat}" tabindex="0" style="--d:${(i % 2) * 0.1}s">
-      <div class="card-media">
-        <video muted loop playsinline preload="none" poster="media/${id}.jpg" data-src="media/${id}-loop.mp4"></video>
-        <span class="play-pill"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Watch</span>
+  $("#count").textContent = projects.length;
+  $("#year").textContent = new Date().getFullYear();
+
+  // ---------------------------------------------------------------- grid
+  const grid = $("#grid");
+  grid.innerHTML = projects.slice(1).map((p) => `
+    <a class="card rise" href="#${p.id}" data-clip="${p.clips[0].id}" data-cats="${p.cats.join(" ")}">
+      <div class="card-in">
+        <div class="shot">
+          <img src="media/${p.clips[0].id}.webp" alt="${p.title} preview" loading="lazy" decoding="async">
+          <span class="cap">${p.tag}</span>
+          ${p.clips.length > 1 ? `<span class="n-clips">${p.clips.length} clips</span>` : ""}
+        </div>
+        <div class="meta"><h3>${p.title}</h3><p>${p.blurb}</p></div>
       </div>
-      <div class="card-body"><p class="tag">${p.tag}</p><h3>${p.title}</h3><p>${p.desc}</p></div>
-      <span class="shine"></span>
-    </article>`;
+    </a>`).join("");
+  const cards = $$(".card", grid);
+
+  // lay the panels out like a comic page: rows of 2 and 3, never one panel on its own
+  function layout() {
+    const shown = cards.filter((c) => !c.hidden);
+    let i = 0, pair = true, flip = false;
+    while (i < shown.length) {
+      const left = shown.length - i;
+      let n = Math.min(pair ? 2 : 3, left);
+      if (left - n === 1) n = left;
+      const spans = n === 1 ? [7] : n === 2 ? (flip ? [5, 7] : [7, 5]) : n === 3 ? [4, 4, 4] : [3, 3, 3, 3];
+      const h = n <= 2 ? 300 : n === 3 ? 232 : 196;
+      shown.slice(i, i + n).forEach((card, k) => {
+        card.style.setProperty("--span", spans[k]);
+        card.style.setProperty("--h", h + "px");
+        card.style.setProperty("--d", k * 70 + "ms");
+      });
+      if (n === 2) flip = !flip;
+      pair = !pair;
+      i += n;
+    }
+  }
+  layout();
+
+  // filters
+  const filterNames = { all: "All", combat: "Combat", systems: "Systems", world: "World", games: "Full games" };
+  const filters = $("#filters");
+  filters.innerHTML = Object.entries(filterNames).map(([key, name]) => {
+    const n = key === "all" ? cards.length : cards.filter((c) => c.dataset.cats.split(" ").includes(key)).length;
+    return `<button class="filter${key === "all" ? " on" : ""}" data-filter="${key}" aria-pressed="${key === "all"}">${name}<sup>${n}</sup></button>`;
+  }).join("");
+  filters.addEventListener("click", (e) => {
+    const btn = e.target.closest(".filter");
+    if (!btn || btn.classList.contains("on")) return;
+    for (const b of $$(".filter", filters)) {
+      b.classList.toggle("on", b === btn);
+      b.setAttribute("aria-pressed", b === btn);
+    }
+    const key = btn.dataset.filter;
+    for (const c of cards) c.hidden = !(key === "all" || c.dataset.cats.split(" ").includes(key));
+    layout();
+    cards.filter((c) => !c.hidden).forEach((c, k) => {
+      c.classList.add("in");
+      if (!calm) c.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 320, delay: k * 28, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" });
+    });
+  });
+
+  // ---------------------------------------------------------------- what i do
+  const moves = [
+    { t: "Combat & abilities", d: "Hitboxes, combos, cooldowns, dashes and finishers, with the damage checked on the server.", to: "abilities", peek: "boom" },
+    { t: "Enemies & AI", d: "Enemies that track you, shoot, take damage and go down properly.", to: "turrets", peek: "turret-a" },
+    { t: "Game loops", d: "Rounds, intermissions, stages, queues and win conditions.", to: "arena", peek: "arena" },
+    { t: "World systems", d: "Oceans, mounts, building tools and doors that know who you are.", to: "ocean", peek: "ocean" },
+    { t: "UI & menus", d: "Character select, HUDs, battle menus and settings screens.", to: "monster", peek: "monster" },
+    { t: "Data & saving", d: "Inventories, currency and progress saved with DataStores." },
+    { t: "Tools & Python", d: "Scripts that automate the boring parts outside of Studio." },
+  ];
+  $("#moves").innerHTML = moves.map((m, i) => {
+    const inner = `<span class="n">${String(i + 1).padStart(2, "0")}</span><span class="t">${m.t}</span><span class="d">${m.d}</span>`;
+    return m.to
+      ? `<li class="rise"><a class="move" href="#${m.to}" data-peek="${m.peek}">${inner}<span class="go">see it <span aria-hidden="true">→</span></span></a></li>`
+      : `<li class="rise"><div class="move">${inner}<span class="go"></span></div></li>`;
   }).join("");
 
-  /* ---------------- reveal on scroll ---------------- */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-  document.querySelectorAll(".reveal").forEach((el, i) => {
-    if (el.closest(".hero")) el.style.setProperty("--d", `${0.1 + i * 0.12}s`);
-    io.observe(el);
-  });
-  document.querySelectorAll(".services .svc, .steps .step").forEach((el, i) => el.style.setProperty("--d", `${(i % 3) * 0.1}s`));
-
-  /* ---------------- videos: lazy-load + autoplay in view ---------------- */
-  const loadVideo = (v) => { if (!v.src && v.dataset.src) v.src = v.dataset.src; };
-  const vio = new IntersectionObserver((entries) => {
-    entries.forEach(({ target: v, isIntersecting }) => {
-      if (isIntersecting) { loadVideo(v); if (!reduceMotion) v.play().catch(() => {}); }
-      else v.pause();
-    });
-  }, { threshold: 0.35 });
-  document.querySelectorAll(".card video, .featured video").forEach((v) => vio.observe(v));
-
-  /* ---------------- typer ---------------- */
-  const typer = document.getElementById("typer");
-  const words = ["combat frameworks.", "grand-strategy games.", "custom ocean physics.", "round-based PvP.", "horror experiences.", "clean, secure systems."];
-  if (!reduceMotion) {
-    let w = 0, c = words[0].length, del = true;
-    const tick = () => {
-      const word = words[w];
-      c += del ? -1 : 1;
-      typer.textContent = word.slice(0, c);
-      let delay = del ? 35 : 70;
-      if (!del && c === word.length) { del = true; delay = 1800; }
-      else if (del && c === 0) { del = false; w = (w + 1) % words.length; delay = 300; }
-      setTimeout(tick, delay);
+  // thumbnail that trails the cursor over rows that have a clip
+  if (hasMouse) {
+    const peek = $("#peek"), img = $("img", peek), list = $("#moves");
+    let x = 0, y = 0, tx = 0, ty = 0, raf = 0, shown = "";
+    const follow = () => {
+      x += (tx - x) * 0.22; y += (ty - y) * 0.22;
+      peek.style.transform = `translate3d(${x + 26}px, ${y - 190}px, 0) rotate(-2deg)`;
+      raf = peek.classList.contains("on") || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(follow) : 0;
     };
-    typer.textContent = words[0];
-    setTimeout(tick, 2200);
-  } else typer.textContent = words[0];
-
-  /* ---------------- counters ---------------- */
-  const cio = new IntersectionObserver((entries) => {
-    entries.forEach(({ target, isIntersecting }) => {
-      if (!isIntersecting) return;
-      cio.unobserve(target);
-      const to = +target.dataset.to, t0 = performance.now(), dur = 1400;
-      const step = (t) => {
-        const k = Math.min(1, (t - t0) / dur);
-        target.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
-        if (k < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    });
-  });
-  document.querySelectorAll(".count").forEach((el) => cio.observe(el));
-
-  /* ---------------- skill bars ---------------- */
-  const sio = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (e.isIntersecting) { e.target.classList.add("in"); sio.unobserve(e.target); }
-  }), { threshold: 0.3 });
-  document.querySelectorAll(".skills").forEach((el) => sio.observe(el));
-
-  /* ---------------- nav, progress, cursor glow ---------------- */
-  const nav = document.getElementById("nav");
-  const bar = document.querySelector(".progress");
-  const onScroll = () => {
-    nav.classList.toggle("scrolled", scrollY > 30);
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-  };
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  const menuBtn = document.getElementById("menuBtn");
-  const navLinks = document.getElementById("navLinks");
-  menuBtn.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("open");
-    menuBtn.setAttribute("aria-expanded", open);
-  });
-  navLinks.addEventListener("click", (e) => {
-    if (e.target.closest("a")) { navLinks.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
-  });
-
-  if (finePointer && !reduceMotion) {
-    const glow = document.querySelector(".cursor-glow");
-    let gx = 0, gy = 0, tx = 0, ty = 0, raf = 0;
-    const loop = () => {
-      gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
-      glow.style.left = gx + "px"; glow.style.top = gy + "px";
-      raf = Math.abs(tx - gx) + Math.abs(ty - gy) > 0.5 ? requestAnimationFrame(loop) : 0;
-    };
-    addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(loop); }, { passive: true });
-
-    /* magnetic buttons */
-    document.querySelectorAll(".magnetic").forEach((b) => {
-      b.addEventListener("pointermove", (e) => {
-        const r = b.getBoundingClientRect();
-        b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px, ${(e.clientY - r.top - r.height / 2) * 0.25}px)`;
-      });
-      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
-    });
-
-    /* card tilt + shine */
-    document.querySelectorAll(".card").forEach((card) => {
-      card.addEventListener("pointermove", (e) => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 5}deg) rotateY(${(x - 0.5) * 6}deg) translateY(-4px)`;
-        card.style.setProperty("--mx", x * 100 + "%");
-        card.style.setProperty("--my", y * 100 + "%");
-      });
-      card.addEventListener("pointerleave", () => { card.style.transform = ""; });
-    });
+    list.addEventListener("pointermove", (e) => {
+      const row = e.target.closest("a.move");
+      tx = e.clientX; ty = e.clientY;
+      if (!row) return peek.classList.remove("on");
+      if (shown !== row.dataset.peek) { shown = row.dataset.peek; img.src = `media/${shown}.webp`; }
+      if (!peek.classList.contains("on")) { x = tx; y = ty; peek.classList.add("on"); }
+      if (!raf) raf = requestAnimationFrame(follow);
+    }, { passive: true });
+    list.addEventListener("pointerleave", () => peek.classList.remove("on"));
+    addEventListener("scroll", () => peek.classList.remove("on"), { passive: true });
   }
 
-  /* ---------------- filters ---------------- */
-  document.querySelectorAll(".filter").forEach((btn) => btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach((b) => b.classList.toggle("active", b === btn));
-    const f = btn.dataset.filter;
-    grid.querySelectorAll(".card").forEach((card) => {
-      const show = f === "all" || card.dataset.cat.split(" ").includes(f);
-      card.classList.toggle("hide", !show);
-      if (show) {
-        card.classList.add("in");
-        card.animate?.([{ opacity: 0, transform: "translateY(16px) scale(.98)" }, { opacity: 1, transform: "none" }], { duration: 450, easing: "cubic-bezier(.2,.8,.2,1)" });
+  // ---------------------------------------------------------------- reveal on scroll
+  const reveal = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); reveal.unobserve(e.target); }
+  }, { rootMargin: "0px 0px -7% 0px", threshold: 0.08 });
+  $$(".rise").forEach((el) => reveal.observe(el));
+  $$(".hero .rise").forEach((el, i) => el.style.setProperty("--d", i * 80 + "ms"));
+  $$("#moves .rise").forEach((el, i) => el.style.setProperty("--d", i * 45 + "ms"));
+
+  // nav gets its border once you leave the top
+  const nav = $("#nav");
+  new IntersectionObserver(([e]) => nav.classList.toggle("stuck", !e.isIntersecting)).observe($("#top-mark"));
+
+  // stop the looping animations when they're off screen
+  const tape = $(".tape"), hero = $(".hero");
+  let heroInView = true;
+  new IntersectionObserver(([e]) => tape.classList.toggle("off", !e.isIntersecting)).observe(tape);
+  new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; hero.classList.toggle("off", !heroInView); }).observe(hero);
+
+  // ---------------------------------------------------------------- the eye
+  // the pupil is a tiny element sitting over the art. with a mouse it looks at the cursor.
+  const pupil = $("#pupil"), art = $("#art");
+  if (pupil && !calm && CSS.supports("width", "1cqw")) {
+    if (hasMouse) {
+      let px = 0, py = 0, queued = false, reach = art.clientWidth * 0.0062;
+      new ResizeObserver(() => { reach = art.clientWidth * 0.0062; }).observe(art);
+      const look = () => {
+        queued = false;
+        const r = pupil.parentElement.getBoundingClientRect();
+        const dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height / 2);
+        const dist = Math.hypot(dx, dy) || 1;
+        const pull = Math.min(1, dist / 240) * reach;
+        pupil.style.transform = `translate(${(dx / dist) * pull}px, ${(dy / dist) * pull * 0.8}px)`;
+      };
+      addEventListener("pointermove", (e) => {
+        if (!heroInView || e.pointerType !== "mouse") return;
+        px = e.clientX; py = e.clientY;
+        if (!queued) { queued = true; requestAnimationFrame(look); }
+      }, { passive: true });
+    } else {
+      pupil.classList.add("idle"); // no cursor to follow, so it just glances around
+    }
+  }
+
+  // ---------------------------------------------------------------- clip previews
+  // nothing loads or decodes until it is needed, and only one preview plays at a time.
+  const viewer = $("#viewer");
+  const pool = []; // preview videos for the grid, oldest first
+  let playing = null;
+  function startPreview(host) {
+    if (calm || viewer.open) return;
+    if (playing && playing !== host) stopPreview(playing);
+    const shot = $(".shot", host);
+    let v = $("video", shot);
+    if (v && host !== feat) pool.push(pool.splice(pool.indexOf(v), 1)[0]);
+    if (!v) {
+      v = document.createElement("video");
+      Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "auto", src: `media/${host.dataset.clip}-loop.mp4` });
+      v.setAttribute("aria-hidden", "true");
+      v.addEventListener("playing", () => v.classList.add("on"));
+      shot.append(v);
+      if (host !== feat) {
+        pool.push(v);
+        if (pool.length > 3) { const old = pool.shift(); old.removeAttribute("src"); old.load(); old.remove(); }
       }
-    });
-  }));
+    }
+    playing = host;
+    v.play().catch(() => {});
+  }
+  function stopPreview(host) {
+    const v = $("video", host);
+    if (v) { v.pause(); v.classList.remove("on"); }
+    if (playing === host) playing = null;
+  }
 
-  /* ---------------- modal ---------------- */
-  const modal = document.getElementById("modal");
-  const mVideo = document.getElementById("mVideo");
-  let lastFocus = null;
-  const openModal = (id) => {
-    const p = projects[id];
-    if (!p) return;
-    lastFocus = document.activeElement;
-    document.getElementById("mTag").textContent = p.tag;
-    document.getElementById("mTitle").textContent = p.title;
-    document.getElementById("mDesc").textContent = p.desc;
-    document.getElementById("mBuilt").innerHTML = p.built.map((b) => `<li>${b}</li>`).join("");
-    mVideo.poster = `media/${id}.jpg`;
-    mVideo.src = `media/${id}-full.mp4`;
-    modal.classList.add("open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    modal.querySelector(".modal-close").focus();
-    mVideo.play().catch(() => {});
-  };
-  const closeModal = () => {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-    mVideo.pause();
-    mVideo.removeAttribute("src"); mVideo.load();
-    lastFocus?.focus();
-  };
-  document.addEventListener("click", (e) => {
-    const card = e.target.closest(".card, .featured");
-    if (card) openModal(card.dataset.id);
-    if (e.target.closest("[data-close]")) closeModal();
+  const feat = $("#feat");
+  feat.dataset.clip = "strategy";
+  let featInView = false;
+
+  if (hasMouse) {
+    // desktop: preview on hover, with a small delay so sweeping across the grid doesn't start six videos
+    for (const host of [feat, ...cards]) {
+      let timer = 0;
+      host.addEventListener("pointerenter", () => { timer = setTimeout(() => startPreview(host), 90); });
+      host.addEventListener("pointerleave", () => {
+        clearTimeout(timer);
+        if (host === feat && featInView) return; // the featured one keeps playing while it's on screen
+        stopPreview(host);
+        if (featInView && !playing) startPreview(feat);
+      });
+      host.addEventListener("focus", () => startPreview(host));
+      host.addEventListener("blur", () => { if (!(host === feat && featInView)) stopPreview(host); });
+    }
+    new IntersectionObserver(([e]) => {
+      featInView = e.isIntersecting;
+      if (featInView) { if (!playing) startPreview(feat); } else stopPreview(feat);
+    }, { threshold: 0.5 }).observe(feat);
+  } else {
+    // touch: whichever panel is in the middle of the screen plays
+    const mid = new IntersectionObserver((entries) => {
+      for (const e of entries) e.isIntersecting ? startPreview(e.target) : stopPreview(e.target);
+    }, { rootMargin: "-42% 0px -42% 0px" });
+    for (const host of [feat, ...cards]) mid.observe(host);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { if (playing) stopPreview(playing); }
+    else if (featInView && !viewer.open) startPreview(feat);
   });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
-    if (e.key === "Enter" && e.target.matches?.(".card, .featured")) openModal(e.target.dataset.id);
+
+  // ---------------------------------------------------------------- project viewer
+  // every project has its own link (…/#ocean), so a clip can be sent straight to someone.
+  const vVideo = $("#vVideo"), vClips = $("#vClips");
+  let current = null;
+
+  function setClip(i) {
+    const clip = current.clips[i];
+    vVideo.style.aspectRatio = "";
+    vVideo.poster = `media/${clip.id}.webp`;
+    vVideo.src = `media/${clip.id}-full.mp4`;
+    vVideo.play().catch(() => {}); // blocked when opened from a link without a click, the controls are right there
+    $$(".clip", vClips).forEach((b, k) => { b.classList.toggle("on", k === i); b.setAttribute("aria-selected", k === i); });
+  }
+  vVideo.addEventListener("loadedmetadata", () => { vVideo.style.aspectRatio = `${vVideo.videoWidth} / ${vVideo.videoHeight}`; });
+
+  function show(id) {
+    const p = byId[id];
+    current = p;
+    $("#vTag").textContent = p.tag;
+    $("#vTitle").textContent = p.title;
+    $("#vDesc").textContent = p.desc;
+    $("#vBuilt").innerHTML = p.built.map((b) => `<li>${b}</li>`).join("");
+    vClips.innerHTML = p.clips.length > 1 ? p.clips.map((c, k) => `<button class="clip" role="tab" data-i="${k}">${c.label}</button>`).join("") : "";
+    if (playing) stopPreview(playing);
+    if (!viewer.open) viewer.showModal();
+    $(".viewer-in", viewer).scrollTop = 0;
+    setClip(0);
+  }
+  function step(dir) {
+    const next = order[(order.indexOf(current.id) + dir + order.length) % order.length];
+    history.replaceState(null, "", "#" + next);
+    show(next);
+  }
+  function route() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (byId[id]) show(id);
+    else if (viewer.open) viewer.close();
+  }
+
+  vClips.addEventListener("click", (e) => { const b = e.target.closest(".clip"); if (b) setClip(+b.dataset.i); });
+  $("#vPrev").addEventListener("click", () => step(-1));
+  $("#vNext").addEventListener("click", () => step(1));
+  $("#vClose").addEventListener("click", () => viewer.close());
+  $("#vLink").addEventListener("click", () => copy(location.origin + location.pathname + "#" + current.id, "Link to this project copied"));
+  viewer.addEventListener("click", (e) => { if (e.target === viewer) viewer.close(); }); // click outside the box
+  viewer.addEventListener("keydown", (e) => {
+    if (e.target === vVideo) return; // arrows scrub the video when it has focus
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
   });
+  viewer.addEventListener("close", () => {
+    vVideo.pause();
+    vVideo.removeAttribute("src");
+    vVideo.load();
+    if (byId[location.hash.slice(1)]) history.replaceState(null, "", location.pathname + location.search);
+    if (featInView) startPreview(feat);
+  });
+  addEventListener("hashchange", route);
+  route();
 
-  /* ---------------- copy discord ---------------- */
-  const toast = document.getElementById("toast");
-  let toastT;
-  const showToast = (msg) => {
-    toast.textContent = msg; toast.classList.add("show");
-    clearTimeout(toastT); toastT = setTimeout(() => toast.classList.remove("show"), 2200);
-  };
-  document.querySelectorAll(".copy-discord").forEach((b) => b.addEventListener("click", async () => {
-    const name = b.dataset.discord;
-    try { await navigator.clipboard.writeText(name); showToast(`Discord "${name}" copied, add me!`); }
-    catch { showToast(`My Discord: ${name}`); }
-  }));
+  // ---------------------------------------------------------------- copy + toast
+  const toast = $("#toast");
+  let toastTimer = 0;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("on"), 2400);
+  }
+  async function copy(text, msg) {
+    try { await navigator.clipboard.writeText(text); say(msg); }
+    catch { say("Couldn't copy, here it is: " + text); }
+  }
+  for (const b of $$("[data-copy]")) {
+    b.addEventListener("click", () => copy(b.dataset.copy, `Copied "${b.dataset.copy}". Add me on Discord!`));
+  }
 
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  /* ---------------- code viewer ---------------- */
-  const snippets = {
+  // ---------------------------------------------------------------- code samples
+  const samples = {
     waves: `--!strict
 -- Gerstner wave displacement, used for the ocean surface and swimming.
 local Waves = {}
@@ -370,35 +501,38 @@ end
 return RoundService`,
   };
 
-  const KW = new Set("local function end if then else elseif return for in do while repeat until break true false nil not and or export type continue".split(" "));
-  const BI = new Set("game workspace task math os string table Vector3 Vector2 CFrame Instance typeof print warn pairs ipairs".split(" "));
-  const TY = new Set("number string boolean Player Vector3 Vector2 State Wave Bucket unknown".split(" "));
+  // tiny luau highlighter, good enough for three snippets
+  const KEYWORDS = new Set("local function end if then else elseif return for in do while repeat until break true false nil not and or export type continue".split(" "));
+  const GLOBALS = new Set("game workspace task math os string table Vector3 Vector2 CFrame Instance typeof print warn pairs ipairs".split(" "));
+  const TYPES = new Set("number string boolean Player State Wave Bucket unknown".split(" "));
   const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  const highlight = (src) => src.split("\n").map((line, i) => {
+  const paint = (src) => src.split("\n").map((line, i) => {
     const out = line.replace(/(--.*$)|("(?:[^"\\]|\\.)*")|(\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)(\s*\()?|([^A-Za-z_"\-\d]+|-)/g,
-      (m, com, str, num, id, call, other) => {
-        if (com) return `<span class="t-c">${esc(com)}</span>`;
+      (m, comment, str, num, word, call, other) => {
+        if (comment) return `<span class="t-c">${esc(comment)}</span>`;
         if (str) return `<span class="t-s">${esc(str)}</span>`;
         if (num) return `<span class="t-n">${num}</span>`;
-        if (id) {
-          const rest = call ? esc(call) : "";
-          if (KW.has(id)) return `<span class="t-k">${id}</span>${rest}`;
-          if (BI.has(id)) return `<span class="t-b">${id}</span>${rest}`;
-          if (TY.has(id)) return `<span class="t-t">${id}</span>${rest}`;
-          if (call) return `<span class="t-f">${id}</span>${rest}`;
-          return id;
+        if (word) {
+          const tail = call ? esc(call) : "";
+          if (KEYWORDS.has(word)) return `<span class="t-k">${word}</span>${tail}`;
+          if (GLOBALS.has(word)) return `<span class="t-b">${word}</span>${tail}`;
+          if (TYPES.has(word)) return `<span class="t-t">${word}</span>${tail}`;
+          if (call) return `<span class="t-f">${word}</span>${tail}`;
+          return word;
         }
         return esc(other ?? m);
       });
     return `<span class="ln">${i + 1}</span>${out}`;
   }).join("\n");
 
-  const codeView = document.getElementById("codeView");
-  const showTab = (name) => {
-    codeView.innerHTML = highlight(snippets[name]);
-    codeView.classList.remove("code-in"); void codeView.offsetWidth; codeView.classList.add("code-in");
-    document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.tab === name));
-  };
-  document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => showTab(t.dataset.tab)));
+  const codeView = $("#codeView");
+  function showTab(name) {
+    codeView.innerHTML = paint(samples[name]);
+    codeView.parentElement.scrollTop = 0;
+    for (const t of $$(".tab")) { t.classList.toggle("on", t.dataset.tab === name); t.setAttribute("aria-selected", t.dataset.tab === name); }
+  }
+  for (const t of $$(".tab")) t.addEventListener("click", () => showTab(t.dataset.tab));
   showTab("waves");
+
+  console.log("%cMAZZI%c  looking for a scripter? discord: mazzisagedev", "font: 700 18px sans-serif; color: #74b3ec", "color: inherit");
 })();
