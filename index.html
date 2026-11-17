@@ -1,228 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mazzi | Roblox scripter</title>
-  <meta name="description" content="Mazzi, full-stack Roblox scripter. 6 years of Luau: combat, enemy AI, game systems, UI and data. Commissions open.">
-  <meta name="theme-color" content="#2d6ca6">
-
-  <!-- link previews (discord, twitter) -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mazzisage-del.github.io/">
-  <meta property="og:title" content="Mazzi | Roblox scripter">
-  <meta property="og:description" content="Full-stack Luau scripter, 6 years in. Combat, enemy AI, game systems and UI. Commissions open.">
-  <meta property="og:image" content="https://mazzisage-del.github.io/media/card.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232d6ca6'/%3E%3Cpath d='M7 24V8l9 9 9-9v16' fill='none' stroke='%2304070b' stroke-width='4.5' stroke-linejoin='miter'/%3E%3Ccircle cx='25' cy='25' r='3' fill='%23e0586f'/%3E%3C/svg%3E">
-  <link rel="preload" as="image" href="media/oc.webp" fetchpriority="high">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add("js")</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mazzi - Roblox Scripter</title>
+<meta name="description" content="Mazzi's scripting portfolio. Full-stack Roblox scripter, commissions open.">
+<meta property="og:title" content="Mazzi - Roblox Scripter">
+<meta property="og:description" content="Full-stack Roblox scripter, commissions open.">
+<meta property="og:image" content="https://mazzisage-del.github.io/media/oc.jpg">
+<meta name="theme-color" content="#1d4f86">
+<link rel="icon" href="media/oc.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip" href="#work">Skip to the work</a>
-  <div id="top-mark"></div>
-  <div class="bar" id="bar" aria-hidden="true"></div>
 
-  <header class="nav" id="nav">
-    <div class="wrap nav-in">
-      <a href="#top" class="logo" aria-label="Mazzi, back to top">MAZZI<i></i></a>
-      <nav class="links" aria-label="Sections">
-        <a href="#work">Work</a>
-        <a href="#what">What I do</a>
-        <a href="#code">Code</a>
-        <a href="#about">About</a>
-      </nav>
-      <a href="#contact" class="btn btn-sm">Hire me</a>
+<div class="container">
+
+  <header>
+    <img src="media/oc.webp" alt="My OC">
+    <div>
+      <h1>Mazzi</h1>
+      <p class="role">Full-Stack Roblox Scripter</p>
+      <p>6 years of Luau. Commissions are open.</p>
+      <div class="links">
+        <button class="discord" data-name="mazzisagedev">Discord: mazzisagedev</button>
+        <a href="https://www.roblox.com/users/profile?username=BraicenQuartz" target="_blank">Roblox: BraicenQuartz</a>
+      </div>
     </div>
   </header>
 
-  <main id="top">
+  <section>
+    <h2>About Me</h2>
+    <p>Hey, I'm Mazzi. I've been scripting on Roblox for about 6 years and I do pretty much all of it: server side, client side, UI and saving data. I also use Python for tools outside of Studio.</p>
+    <p>I only started taking commissions recently, so my portfolio is still pretty small. Everything below is stuff I made myself.</p>
+  </section>
 
-    <!-- hero -->
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <p class="cap rise">Full-stack Roblox scripter</p>
-          <h1 class="rise"><span class="l"><span>If it runs</span></span> <span class="l"><span>on <span class="scr">Luau<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12C30 4 52 17 80 9s50-4 70 3 35-4 47-2"/></svg></span>,</span></span> <span class="l"><span>I'll build it.</span></span></h1>
-          <p class="lead rise">I'm Mazzi. I've been scripting in Luau for six years, mostly combat, enemy AI, game systems and UI, on both the server and the client.</p>
-          <div class="cta rise">
-            <a href="#work" class="btn">See the work <span aria-hidden="true">↓</span></a>
-            <button class="btn btn-line" data-copy="mazzisagedev">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.3 5.3A17 17 0 0 0 15 4l-.5 1a15.6 15.6 0 0 0-5 0L9 4a17 17 0 0 0-4.3 1.3C2 9.3 1.3 13.2 1.6 17a17 17 0 0 0 5.2 2.6l1.1-1.7c-.6-.2-1.2-.5-1.7-.8l.4-.3a12 12 0 0 0 10.8 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.7a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.2-2.9-11.7ZM8.7 14.7c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg>
-              mazzisagedev
-            </button>
-          </div>
-          <ul class="facts rise">
-            <li><b data-to="6">6</b> years of Luau</li>
-            <li><b id="count" data-to="13">13</b> projects below</li>
-            <li><b>Open</b> a few slots at a time</li>
-          </ul>
-        </div>
+  <section>
+    <h2>My Work</h2>
+    <p>Some of the things I've worked on. Click a video to play it.</p>
 
-        <div class="hero-art rise" aria-hidden="true">
-          <div class="dots"></div>
-          <div class="art" id="art">
-            <img src="media/oc.webp" width="910" height="822" alt="" fetchpriority="high" decoding="async">
-            <span class="eye"><i id="pupil"></i></span>
-          </div>
-          <p class="note">my OC
-            <svg viewBox="0 0 60 44"><path d="M4 40C9 20 28 9 54 8M54 8 43 3M54 8l-8 9"/></svg>
-          </p>
-        </div>
+    <div class="work">
+      <div class="project">
+        <video controls preload="none" poster="media/strategy.webp" src="media/strategy-full.mp4"></video>
+        <h3>Blocks of Iron</h3>
+        <p>A strategy game set in the ancient world. You pick a country like Rome and play it on a 3D globe.</p>
       </div>
-    </section>
-
-    <!-- tape -->
-    <div class="tape" aria-hidden="true">
-      <div class="tape-run">
-        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
-        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
-        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
-        <span>Commissions open ✶ A few slots at a time ✶ Pricing negotiable ✶ Discord: mazzisagedev ✶ </span>
+      <div class="project">
+        <video controls preload="none" poster="media/dash.webp" src="media/dash-full.mp4"></video>
+        <h3>Sandevistan</h3>
+        <p>The Sandevistan from Cyberpunk 2077. Time slows down around you and you leave afterimages behind.</p>
       </div>
-    </div>
-
-    <!-- work -->
-    <section class="sec" id="work">
-      <div class="wrap">
-        <header class="head rise">
-          <h2>The work</h2>
-          <p>All of these clips are recorded from my own work. Click one to watch the whole clip.</p>
-        </header>
-
-        <a class="feat rise" id="feat" href="#strategy">
-          <div class="feat-in">
-            <div class="shot">
-              <img src="media/strategy.webp" width="1120" height="430" alt="A 3D globe with nation borders in Blocks of Iron" decoding="async">
-              <span class="cap">Featured</span>
-            </div>
-            <div class="feat-body">
-              <p class="kick">Grand strategy</p>
-              <h3>Blocks of Iron</h3>
-              <p>A strategy game set in the ancient world. You pick a country like Rome and play it on a 3D globe.</p>
-              <span class="watch">Watch the clip <span aria-hidden="true">→</span></span>
-            </div>
-          </div>
-        </a>
-
-        <div class="filters rise" id="filters" role="group" aria-label="Filter projects"></div>
-        <div class="grid" id="grid"></div>
-        <noscript><p class="nojs">The project grid needs JavaScript. My Discord is mazzisagedev if you'd rather just message me.</p></noscript>
+      <div class="project">
+        <video controls preload="none" poster="media/ocean.webp" src="media/ocean-full.mp4"></video>
+        <h3>Custom Ocean</h3>
+        <p>An ocean I made from scratch using Gerstner waves. You can swim on it and dive under it.</p>
       </div>
-    </section>
-
-    <!-- what i do -->
-    <section class="sec band" id="what">
-      <div class="wrap">
-        <header class="head rise">
-          <h2>What I do</h2>
-          <p>I do both the server and the client side. Rows with an arrow open a clip.</p>
-        </header>
-        <ol class="moves" id="moves"></ol>
+      <div class="project">
+        <video controls preload="none" poster="media/arena.webp" src="media/arena-full.mp4"></video>
+        <h3>Ability Arena</h3>
+        <p>A round based fighting game. Every round is on a different stage and you use abilities that cost you something.</p>
       </div>
-    </section>
-
-    <!-- code -->
-    <section class="sec" id="code">
-      <div class="wrap code-grid">
-        <header class="head rise">
-          <h2>How I write it</h2>
-          <p>A few samples of how I write my scripts.</p>
-        </header>
-        <div class="editor rise">
-          <div class="editor-in">
-            <div class="tabs" role="tablist" aria-label="Code samples">
-              <button class="tab on" role="tab" data-tab="waves" aria-selected="true">Waves.luau</button>
-              <button class="tab" role="tab" data-tab="remote" aria-selected="false">RateLimit.luau</button>
-              <button class="tab" role="tab" data-tab="round" aria-selected="false">RoundService.luau</button>
-            </div>
-            <pre tabindex="0"><code id="codeView"></code></pre>
-          </div>
-        </div>
+      <div class="project">
+        <video controls preload="none" poster="media/monster.webp" src="media/monster-full.mp4"></video>
+        <h3>Dynamax Addition to PBB Copy</h3>
+        <p>Dynamax added to a copy of Pokémon Brick Bronze. You can Dynamax in battle and your moves turn into Max Moves.</p>
       </div>
-    </section>
-
-    <!-- about -->
-    <section class="sec" id="about">
-      <div class="wrap about-grid">
-        <div class="bio rise">
-          <div class="sticker" role="img" aria-label="Close-up of Mazzi's original character"></div>
-          <h2>Hey, I'm Mazzi.</h2>
-          <p>I've been scripting in Luau for six years. I do the server side, the client side, UI and saving data.</p>
-          <p>I just started taking commissions, so my portfolio is still small. My prices are negotiable.</p>
-          <a class="out" href="https://www.roblox.com/users/profile?username=BraicenQuartz" target="_blank" rel="noopener">Roblox: BraicenQuartz <span aria-hidden="true">↗</span></a>
-        </div>
-        <dl class="kit rise">
-          <div><dt>daily</dt><dd>Luau, Roblox API, Studio</dd></div>
-          <div><dt>gameplay</dt><dd>combat, abilities, enemy AI, round loops</dd></div>
-          <div><dt>world</dt><dd>water, mounts, building, doors</dd></div>
-          <div><dt>plumbing</dt><dd>remotes, server checks, DataStores</dd></div>
-          <div><dt>ui</dt><dd>HUDs, menus, settings</dd></div>
-          <div><dt>outside</dt><dd>Python for tools and automation</dd></div>
-        </dl>
+      <div class="project">
+        <video controls preload="none" poster="media/turret-a.webp" src="media/turret-a-full.mp4"></video>
+        <h3>Sentry Turrets</h3>
+        <p>Turrets that shoot at you. The bullets have gravity and the turrets overheat if they fire too long.</p>
       </div>
-    </section>
-
-    <!-- contact -->
-    <section class="sec contact" id="contact">
-      <div class="wrap">
-        <h2 class="rise">Got a game that needs a <span class="scr">scripter?<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 11C40 5 70 16 104 9s62 5 93 1"/></svg></span></h2>
-        <p class="lead rise">Message me on Discord and tell me what you're building. Prices are negotiable, we'll work something out.</p>
-        <div class="cta rise">
-          <button class="btn btn-big" data-copy="mazzisagedev">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.3 5.3A17 17 0 0 0 15 4l-.5 1a15.6 15.6 0 0 0-5 0L9 4a17 17 0 0 0-4.3 1.3C2 9.3 1.3 13.2 1.6 17a17 17 0 0 0 5.2 2.6l1.1-1.7c-.6-.2-1.2-.5-1.7-.8l.4-.3a12 12 0 0 0 10.8 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.7a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.2-2.9-11.7ZM8.7 14.7c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1Z"/></svg>
-            Copy my Discord: mazzisagedev
-          </button>
-        </div>
-        <ol class="how rise">
-          <li><b>1</b> You DM me what you need</li>
-          <li><b>2</b> We agree on scope and price</li>
-          <li><b>3</b> I build it and send clips as I go</li>
-          <li><b>4</b> You get code you can keep building on</li>
-        </ol>
+      <div class="project">
+        <video controls preload="none" poster="media/turret-b.webp" src="media/turret-b-full.mp4"></video>
+        <h3>Quickhack</h3>
+        <p>A quickhack ability inspired by Cyberpunk 2077. You hack a turret from range and take it out.</p>
       </div>
-    </section>
-  </main>
-
-  <footer class="foot">
-    <div class="wrap foot-in">
-      <span class="logo">MAZZI<i></i></span>
-      <span>Designed &amp; coded by Mazzi · <span id="year">2026</span></span>
-      <a href="#top">Back to top ↑</a>
-    </div>
-  </footer>
-
-  <!-- project viewer -->
-  <dialog class="viewer" id="viewer" aria-labelledby="vTitle">
-    <div class="viewer-in">
-      <div class="viewer-bar">
-        <span class="kick" id="vTag"></span>
-        <div class="viewer-btns">
-          <button id="vPrev" aria-label="Previous project">←</button>
-          <button id="vNext" aria-label="Next project">→</button>
-          <button id="vLink" aria-label="Copy a link to this project">Copy link</button>
-          <button id="vClose" aria-label="Close">✕</button>
-        </div>
+      <div class="project">
+        <video controls preload="none" poster="media/boom.webp" src="media/boom-full.mp4"></video>
+        <h3>Explosion</h3>
+        <p>A big explosion with fire and smoke left over after it goes off.</p>
       </div>
-      <video id="vVideo" controls playsinline preload="metadata"></video>
-      <div class="clips" id="vClips" role="tablist" aria-label="Clips"></div>
-      <div class="viewer-body">
-        <h3 id="vTitle"></h3>
-        <p id="vDesc"></p>
+      <div class="project">
+        <video controls preload="none" poster="media/grab.webp" src="media/grab-full.mp4"></video>
+        <h3>Finisher</h3>
+        <p>Grabs the target from range, pulls them in, punches them and ends with an explosion.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/rpg.webp" src="media/rpg-full.mp4"></video>
+        <h3>Open World RPG</h3>
+        <p>The start of an open world RPG. You pick a race, train, gather stuff and climb walls.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/horror.webp" src="media/horror-full.mp4"></video>
+        <h3>Night Shift</h3>
+        <p>A horror game with a story intro, then a night shift at a pizzeria with cameras and a power meter.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/combat.webp" src="media/combat-full.mp4"></video>
+        <h3>Combat &amp; Summons</h3>
+        <p>Combat with summoned fighters, combos and a time stop, tested on dummies.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/build.webp" src="media/build-full.mp4"></video>
+        <h3>Build Mode</h3>
+        <p>Placing walls with a ghost preview. You drag to stretch them and the corners join up.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/horse.webp" src="media/horse-full.mp4"></video>
+        <h3>Horse Riding</h3>
+        <p>Horse riding with acceleration, gallop animations and a speed meter.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/access.webp" src="media/access-full.mp4"></video>
+        <h3>Resident Doors</h3>
+        <p>Doors that check if you live there, and tell you if you don't.</p>
+      </div>
+      <div class="project">
+        <video controls preload="none" poster="media/island.webp" src="media/island-full.mp4"></video>
+        <h3>Island Lobby</h3>
+        <p>A lobby with queue pads that show how many players are on them and count down.</p>
       </div>
     </div>
-  </dialog>
+  </section>
 
-  <div class="peek" id="peek" aria-hidden="true"><img alt="" decoding="async"></div>
-  <div class="toast" id="toast" role="status"></div>
+  <section>
+    <h2>Skills</h2>
+    <ul>
+      <li>Luau</li>
+      <li>Combat systems and abilities</li>
+      <li>Enemy AI</li>
+      <li>Round systems and lobbies</li>
+      <li>UI</li>
+      <li>DataStores</li>
+      <li>Python</li>
+    </ul>
+  </section>
 
-  <script src="main.js"></script>
+  <section>
+    <h2>Commissions</h2>
+    <p><b>Status:</b> Open</p>
+    <p>I only take a few projects at a time, so message me early if you have a deadline.</p>
+    <p><b>Payment:</b> Negotiable, just tell me what you need and we'll work something out.</p>
+    <p><b>Contact:</b> Discord is the fastest way to reach me (mazzisagedev).</p>
+  </section>
+
+</div>
+
+<footer>Mazzi 2026</footer>
+
+<div id="copied">Copied!</div>
+
+<script src="main.js"></script>
 </body>
 </html>
